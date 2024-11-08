@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redeem Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Background image for the entire page */
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-image: url('bg.jpeg');  /* Replace with your image URL */
+            background-size: cover;  /* Ensures the image covers the entire page */
+            background-position: center;  /* Centers the image */
+            background-attachment: fixed;  /* Keeps the background fixed when scrolling */
+        }
+
+        /* Redeem container with a background image */
+        .redeem-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white; /* Replace with your image URL */
+            background-size: cover;  /* Ensures the image covers the container */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Additional styles for layout */
+        header { text-align: center; margin-bottom: 20px; }
+        .rewards-categories { text-align: center; margin-bottom: 20px; }
+        .rewards-categories button { padding: 10px; margin: 0 5px; background: #007bff; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+        .rewards-categories button:hover { background: #0056b3; }
+        .rewards-list { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        .reward-item { padding: 15px; border: 1px solid #ddd; border-radius: 8px; }
+        .reward-item h3 { margin: 0; }
+        .reward-item p { margin: 5px 0; }
+        .reward-item button { padding: 8px 12px; background: #28a745; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+        .reward-item button:hover { background: #218838; }
+        .qr-section { text-align: center; margin: 20px 0; }
+        #qr-code-container { margin-top: 10px; }
+        .redemption-history { margin-top: 20px; }
+        .redemption-history ul { list-style: none; padding: 0; }
+        .redemption-history li { padding: 8px 0; border-bottom: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+
+<div class="redeem-container">
+    <!-- Points Display -->
+    <header>
+        <h2>Your Points: <span id="points-balance">250</span></h2>
+    </header>
+
+    <!-- Rewards Categories -->
+    <section class="rewards-categories">
+        <button onclick="filterRewards('all')">All</button>
+        <button onclick="filterRewards('eco')">Eco-Friendly Products</button>
+        <button onclick="filterRewards('vouchers')">Vouchers</button>
+        <button onclick="filterRewards('reusable')">Reusable Items</button>
+    </section>
+
+    <!-- Rewards List -->
+    <section id="rewards-list" class="rewards-list">
+        <!-- Example Reward Item -->
+        <div class="reward-item" data-category="eco">
+            <h3>Cloth Bag</h3>
+            <p>Cost: <span class="points-required">50 points</span></p>
+            <button onclick="redeemReward('Cloth Bag', 50)">Redeem</button>
+        </div>
+
+        <div class="reward-item" data-category="vouchers">
+            <h3>10% Off Voucher</h3>
+            <p>Cost: <span class="points-required">100 points</span></p>
+            <button onclick="redeemReward('10% Off Voucher', 100)">Redeem</button>
+        </div>
+
+        <div class="reward-item" data-category="reusable">
+            <h3>Reusable Bottle</h3>
+            <p>Cost: <span class="points-required">150 points</span></p>
+            <button onclick="redeemReward('Reusable Bottle', 150)">Redeem</button>
+        </div>
+    </section>
+
+    <!-- QR Scanner for Vending Machine -->
+    <section class="qr-section">
+        <h3>Scan QR Code</h3>
+        <button onclick="toggleQRScanner()">Open QR Scanner</button>
+        <!-- QR Code Image Container -->
+        <div id="qr-code-container" style="display: none;">
+            <img src="https://via.placeholder.com/150?text=QR+Code" alt="QR Code">
+            <!-- Button for Simulated Scan -->
+            <button onclick="scanQRCode()">Simulate QR Scan</button>
+        </div>
+    </section>
+
+    <!-- Redemption History -->
+    <section class="redemption-history">
+        <h3>Redemption History</h3>
+        <ul id="history-list">
+            <!-- Redemption history items will be appended here -->
+        </ul>
+    </section>
+</div>
+
+<script>
+    // Sample points balance (you may fetch this from the user's profile in a real application)
+    let pointsBalance = 250;
+
+    // Update points balance display
+    function updatePointsDisplay() {
+        document.getElementById('points-balance').textContent = pointsBalance;
+    }
+
+    // Filter rewards based on category
+    function filterRewards(category) {
+        const items = document.querySelectorAll('.reward-item');
+        items.forEach(item => {
+            item.style.display = (category === 'all' || item.dataset.category === category) ? 'block' : 'none';
+        });
+    }
+
+    // Redeem a reward
+    function redeemReward(rewardName, cost) {
+        if (pointsBalance >= cost) {
+            pointsBalance -= cost;
+            updatePointsDisplay();
+            addToHistory(rewardName, cost);
+            alert(`You redeemed: ${rewardName}!`);
+        } else {
+            alert('Not enough points to redeem this reward.');
+        }
+    }
+
+    // Add redeemed reward to history
+    function addToHistory(rewardName, cost) {
+        const historyList = document.getElementById('history-list');
+        const listItem = document.createElement('li');
+        listItem.textContent = `${rewardName} - ${cost} points`;
+        historyList.appendChild(listItem);
+    }
+
+    // Toggle QR Scanner display
+    function toggleQRScanner() {
+        const qrCodeContainer = document.getElementById('qr-code-container');
+        const qrScannerButton = document.querySelector('.qr-section button');
+
+        // Check if the QR code is currently visible
+        if (qrCodeContainer.style.display === 'none') {
+            // Open the QR scanner
+            qrCodeContainer.style.display = 'block';
+            qrScannerButton.textContent = 'Close QR Scanner';
+        } else {
+            // Close the QR scanner
+            qrCodeContainer.style.display = 'none';
+            qrScannerButton.textContent = 'Open QR Scanner';
+        }
+    }
+
+    // Simulate QR code scan and points deduction
+    function scanQRCode() {
+        const vendingMachineCost = 20; // Points deducted for using a vending machine
+        if (pointsBalance >= vendingMachineCost) {
+            pointsBalance -= vendingMachineCost;
+            updatePointsDisplay();
+            alert("QR code scanned successfully! Points deducted for vending machine use.");
+            addToHistory("Vending Machine Redemption", vendingMachineCost);
+        } else {
+            alert("Insufficient points to use the vending machine.");
+        }
+    }
+</script>
+
+</body>
+</html>

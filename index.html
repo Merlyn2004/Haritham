@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harithakarma Sena - Login</title>
+    <link rel="stylesheet" href="work.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Harithakarma Sena</h1>
+            <p>Join the fight against plastic pollution!</p>
+        </header>
+
+        <div class="login-options">
+            <button class="login-btn" id="worker-login">Worker Login</button>
+            <button class="login-btn" id="user-login">User Login</button>
+        </div>
+
+        <div class="login-form" id="login-form">
+            <h2>Login</h2>
+            <form action="#" method="POST">
+                <label for="email">Email/Username</label>
+                <input type="text" id="email" name="email" placeholder="Enter your email or username" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn">Login</button>
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                </div>
+            </form>
+
+            <p>Don't have an account? <a href="#">Sign Up as User</a> | <a href="#">Register as Worker</a></p>
+        </div>
+
+        <footer>
+            <a href="#">About</a> | <a href="#">Contact</a> | <a href="#">Privacy Policy</a>
+        </footer>
+    </div>
+
+    <script>
+        // JavaScript to handle the button click and redirection
+        document.getElementById('worker-login').addEventListener('click', function() {
+            window.location.href = 'worker.html'; // Redirects to worker.html
+        });
+
+        document.getElementById('user-login').addEventListener('click', function() {
+            window.location.href = 'login.html'; // Redirects to login.html
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!-- Existing HTML structure -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harithakarma Sena - Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+    <!-- Profile Sidebar -->
+    <div id="profile">
+        <img src="avatar.png" alt="Avatar" class="avatar">
+        <div class="user-info">
+            <h2>John Doe</h2>
+            <p>@john.doe</p>
+            <button onclick="editProfile()">Edit Profile</button>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <!-- Points Circle -->
+        <div class="center-circle">
+            <h3>1000 Points</h3>
+            <p>Points Earned</p>
+        </div>
+
+        <!-- Navigation Links for Achievements, Challenges, etc. -->
+        <div class="nav-links">
+            <a href="achievement.html" class="nav-link">Achievements</a>
+            <a href="challenge.html" class="nav-link">Challenges</a>
+            <a href="leader.html" class="nav-link">Leaderboard</a>
+            <a href="redeem.html" class="nav-link">Redeem</a>
+        </div>
+    </div>
+
+    <!-- Complaint Section (Top Right) -->
+    <div id="complaint">
+        <button onclick="openComplaint()">Complaint</button>
+    </div>
+
+    <!-- Alert Message -->
+    <div id="alertMessage" class="alert" style="display: none;">
+        <p>Plastic collection reminder!</p>
+        <button onclick="closeAlert()">Close</button>
+    </div>
+
+    <script>
+        // Function to show an alert message
+        function showAlert(message) {
+            const alertBox = document.getElementById('alertMessage');
+            alertBox.style.display = 'block';
+            alertBox.querySelector('p').textContent = message;
+        }
+
+        // Function to close the alert message
+        function closeAlert() {
+            const alertBox = document.getElementById('alertMessage');
+            alertBox.style.display = 'none';
+        }
+
+        // Redirects to edit-profile.html for profile editing
+        function editProfile() {
+            window.location.href = "edit.html";
+        }
+
+        // Placeholder function for opening complaint form
+        function openComplaint() {
+            alert("Complaint form feature coming soon!");
+        }
+
+        // Show alert on page load
+        window.onload = function() {
+            showAlert("Plastic collection scheduled for tomorrow!");
+        };
+    </script>
+</body>
+</html>
